@@ -47,6 +47,7 @@ def init_cli():
     run_parser(subparsers)
     serve_parser(subparsers)
     version_parser(subparsers)
+    rm_parser(subparsers)
     # Parse CLI
     args = parser.parse_args()
     # create stores directories
@@ -254,6 +255,18 @@ def serve_cli(args):
 def version_parser(subparsers):
     parser = subparsers.add_parser("version", help="Display version of AI Model")
     parser.set_defaults(func=version_cli)
+
+
+def rm_parser(subparsers):
+    parser = subparsers.add_parser(
+        'rm', help='Remove AI model from local storage')
+    parser.add_argument('model', help='Name of the model to remove')
+    parser.set_defaults(func=rm_cli)
+
+
+def rm_cli(args):
+    model = New(args.model)
+    model.remove(args)
 
 
 def version_cli(args):

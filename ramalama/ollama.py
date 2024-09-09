@@ -107,3 +107,21 @@ class Ollama(Model):
         return init_pull(
             repos, manifests, accept, registry_head, model_name, model_tag, models, symlink_path, self.model
         )
+
+
+    def get_symlink_path(self, args):
+        models = args.store + "/models/ollama"
+        if '/' in self.model:
+            model_full = self.model
+            models = os.path.join(models, model_full.rsplit("/", 1)[0])
+        else:
+            model_full = "library/" + self.model
+
+        if ':' in model_full:
+            model_name, model_tag = model_full.split(':', 1)
+        else:
+            model_name = model_full
+            model_tag = "latest"
+
+        model_base = os.path.basename(model_name)
+        return os.path.join(models, f"{model_base}:{model_tag}")
