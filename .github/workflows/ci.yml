@@ -6,11 +6,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: install bats
-       shell: bash
-       run: |
-         sudo apt-get update
-         sudo apt-get install bats bash codespell python3-argcomplete
-         pipx install omlmd black flake8
+        shell: bash
+        run: |
+           sudo apt-get update
+           sudo apt-get install bats bash codespell python3-argcomplete
+           pipx install omlmd black flake8
       - name: run test
         run: make test
 
@@ -19,13 +19,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: install golang
-       shell: bash
-       run: |
+        shell: bash
+        run: |
            brew install go
            make install-requirements
       - name: Run a one-line script
-       shell: bash
-       run: make validate
+        shell: bash
+        run: make validate
 # FIXME: ci script should be able to run on MAC.
 #      - name: Run ci
 #        shell: bash
